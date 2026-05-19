@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikolas Carruthers — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #112240;
+    --accent: #c8a96e;
+    --accent-light: #e8d5b0;
+    --muted: #8892a4;
+    --text: #ccd6f6;
+    --text-bright: #e6f1ff;
+    --surface: #112240;
+    --surface-2: #1a2f50;
+    --border: rgba(200,169,110,0.2);
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 4rem;
+    background: rgba(10,22,40,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); font-size: 0.85rem; text-decoration: none;
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem;
+    max-width: 1100px; margin: 0 auto;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.5rem; font-weight: 400;
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    color: var(--text-bright);
+    line-height: 1.05;
+    margin-bottom: 1rem;
+  }
+  .hero-name em { font-style: italic; color: var(--accent); }
+  .hero-title {
+    font-size: 1.25rem; color: var(--muted); font-weight: 300;
+    margin-bottom: 2rem; max-width: 600px;
+  }
+  .hero-desc {
+    font-size: 1rem; color: var(--text); max-width: 520px;
+    margin-bottom: 3rem; font-weight: 300; line-height: 1.8;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 2rem; border-radius: 2px;
+    font-family: var(--font-body); font-size: 0.85rem;
+    font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none; transition: all 0.2s;
+  }
+  .btn-primary {
+    background: var(--accent); color: var(--navy);
+    border: 1px solid var(--accent);
+  }
+  .btn-primary:hover { background: var(--accent-light); }
+  .btn-outline {
+    background: transparent; color: var(--accent);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--accent); background: rgba(200,169,110,0.05); }
+
+  .hero-line {
+    position: absolute; right: 4rem; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+  }
+  .hero-line-text {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); writing-mode: vertical-rl;
+  }
+  .hero-line-bar { width: 1px; height: 80px; background: var(--accent); opacity: 0.4; }
+
+  /* SECTION COMMONS */
+  section { padding: 6rem 4rem; max-width: 1100px; margin: 0 auto; }
+  .section-header { margin-bottom: 4rem; }
+  .section-number {
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.75rem; display: block;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--text-bright);
+    line-height: 1.1;
+  }
+  .section-divider {
+    width: 100%; height: 1px; background: var(--border);
+    margin: 0 auto;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: start;
+  }
+  .about-text p { color: var(--text); font-weight: 300; margin-bottom: 1.25rem; }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+  .stat-card {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 2px; height: 100%; background: var(--accent);
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem; color: var(--accent); line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 400; letter-spacing: 0.05em; }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .skill-group {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .skill-group:hover { border-color: var(--accent); background: rgba(200,169,110,0.03); }
+  .skill-group-icon {
+    font-size: 1.5rem; margin-bottom: 1rem;
+  }
+  .skill-group-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem; color: var(--text-bright); margin-bottom: 1rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    font-size: 0.75rem; padding: 0.3rem 0.75rem;
+    border: 1px solid var(--border); color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 3rem; padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:first-child { border-top: 1px solid var(--border); }
+  .exp-meta {}
+  .exp-period {
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.5rem; display: block;
+  }
+  .exp-company { font-size: 0.85rem; color: var(--muted); font-weight: 300; }
+  .exp-content {}
+  .exp-role {
+    font-family: var(--font-display);
+    font-size: 1.3rem; color: var(--text-bright); margin-bottom: 0.75rem;
+  }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    position: relative; padding-left: 1.25rem;
+    font-weight: 300; color: var(--text); margin-bottom: 0.5rem; font-size: 0.95rem;
+  }
+  .exp-bullets li::before {
+    content: '—'; position: absolute; left: 0;
+    color: var(--accent); font-size: 0.9rem;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+  }
+  .project-card {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .project-card::after {
+    content: ''; position: absolute;
+    top: 0; right: 0; width: 60px; height: 2px;
+    background: var(--accent); opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .project-card:hover::after { opacity: 1; }
+  .project-type {
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.75rem; display: block;
+  }
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem; color: var(--text-bright); margin-bottom: 0.75rem;
+  }
+  .project-desc { font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 1.6; margin-bottom: 1.25rem; }
+  .project-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .project-tool {
+    font-size: 0.7rem; padding: 0.25rem 0.6rem;
+    background: rgba(200,169,110,0.08); color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.8rem; color: var(--accent); text-decoration: none;
+    margin-top: 1rem; letter-spacing: 0.05em;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 0.75rem; }
+
+  /* EDUCATION */
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .edu-card {
+    border: 1px solid var(--border); padding: 2rem;
+  }
+  .edu-year { font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.5rem; display: block; }
+  .edu-school { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-bright); margin-bottom: 0.25rem; }
+  .edu-degree { font-size: 0.9rem; color: var(--muted); font-weight: 300; }
+
+  /* CONTACT */
+  .contact-inner {
+    border: 1px solid var(--border);
+    padding: 4rem; text-align: center;
+  }
+  .contact-inner p { max-width: 500px; margin: 1rem auto 2.5rem; color: var(--muted); font-weight: 300; }
+  .contact-links { display: flex; justify-content: center; gap: 3rem; margin-top: 3rem; }
+  .contact-link {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    text-decoration: none; color: var(--muted); font-size: 0.8rem;
+    letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--accent); }
+  .contact-link-icon { font-size: 1.2rem; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 1100px; margin: 0 auto;
+  }
+  footer p { font-size: 0.8rem; color: var(--muted); font-weight: 300; }
+
+  .project-download {
+    display: inline-block; margin-top: 1.25rem;
+    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px; transition: border-color 0.2s, color 0.2s;
+  }
+  .project-download:hover { border-color: var(--accent); }
+
+  .photo-placeholder {
+    border: 1px dashed rgba(200,169,110,0.3);
+    padding: 5rem 2rem; text-align: center;
+  }
+  .photo-icon { font-size: 2.5rem; margin-bottom: 1.25rem; }
+  .photo-placeholder-title {
+    font-family: var(--font-display); font-size: 1.5rem;
+    color: var(--text-bright); margin-bottom: 0.75rem;
+  }
+  .photo-placeholder-desc {
+    font-size: 0.95rem; color: var(--muted); font-weight: 300;
+    max-width: 420px; margin: 0 auto 2rem;
+  }
+
+  /* BG decoration */
+  .bg-grid {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(200,169,110,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,169,110,0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* Z stacking */
+  nav, .hero, section, footer { position: relative; z-index: 1; }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.7s ease both; }
+  .hero-name    { animation: fadeUp 0.7s ease 0.1s both; }
+  .hero-title   { animation: fadeUp 0.7s ease 0.2s both; }
+  .hero-desc    { animation: fadeUp 0.7s ease 0.3s both; }
+  .hero-cta     { animation: fadeUp 0.7s ease 0.4s both; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section, .hero { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .hero-line { display: none; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid" aria-hidden="true"></div>
+
+<nav>
+  <a href="#" class="nav-logo">NC</a>
+  <ul class="nav-links">
+    <li><a href="javascript:void(0)" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</a></li>
+    <li><a href="javascript:void(0)" onclick="document.getElementById('skills').scrollIntoView({behavior:'smooth'})">Skills</a></li>
+    <li><a href="javascript:void(0)" onclick="document.getElementById('experience').scrollIntoView({behavior:'smooth'})">Experience</a></li>
+    <li><a href="javascript:void(0)" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">Projects</a></li>
+    <li><a href="javascript:void(0)" onclick="document.getElementById('photography').scrollIntoView({behavior:'smooth'})">Photography</a></li>
+    <li><a href="javascript:void(0)" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Finance · Marketing · Strategy</p>
+  <h1 class="hero-name">Nikolas<br><em>Carruthers</em></h1>
+  <p class="hero-title">Finance student, digital marketer, and builder.</p>
+  <p class="hero-desc">
+    SDSU Finance senior with hands-on experience spanning real estate marketing, programmatic advertising, financial modeling, and e-commerce — backed by international business exposure from Barcelona and a Bloomberg Terminal certification.
+  </p>
+  <div class="hero-cta">
+    <button class="btn btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View my work →</button>
+    <button class="btn btn-outline" onclick="navigator.clipboard && navigator.clipboard.writeText('Nikolas.carruthers@gmail.com'); this.textContent='Email copied!'; setTimeout(()=>this.textContent='Get in touch',2000)">Get in touch</button>
+  </div>
+  <div class="hero-line" aria-hidden="true">
+    <div class="hero-line-bar"></div>
+    <span class="hero-line-text">San Diego, CA</span>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-number">01 — About</span>
+    <h2 class="section-title">The full picture</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a Finance BS candidate at San Diego State University (graduating December 2026) with a double focus on financial analysis and digital marketing strategy. My background spans corporate real estate marketing, small business ownership, and a semester studying international business at the Universitat Autònoma de Barcelona.</p>
+      <p>I build financial models, run paid ad campaigns, and use AI tools to automate workflows — all skills I've developed on real projects, not just in the classroom. I'm fluent in Bloomberg Terminal, advanced Excel, and platforms like TikTok and Meta Ads Manager.</p>
+      <p>Outside of finance, I'm a nature photographer. It's where precision and creativity overlap — something I bring to everything I work on.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">35%</div>
+        <div class="stat-label">Engagement increase driven at Compass Real Estate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Members served daily in client-facing role</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$8K+</div>
+        <div class="stat-label">Annual budget managed as a small business owner</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">Dec '26</div>
+        <div class="stat-label">SDSU graduation, BS Finance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-number">02 — Skills</span>
+    <h2 class="section-title">What I bring</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-icon">📊</div>
+      <h3 class="skill-group-title">Finance &amp; Analysis</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Bloomberg Terminal</span>
+        <span class="skill-tag">Financial Modeling</span>
+        <span class="skill-tag">DCF Valuation</span>
+        <span class="skill-tag">Portfolio Optimization</span>
+        <span class="skill-tag">Regression Analysis</span>
+        <span class="skill-tag">Risk Management</span>
+        <span class="skill-tag">J.P. Morgan Simulation</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">📣</div>
+      <h3 class="skill-group-title">Digital Marketing</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">TikTok Ads Manager</span>
+        <span class="skill-tag">Meta Ads Manager</span>
+        <span class="skill-tag">A/B Testing</span>
+        <span class="skill-tag">SEO</span>
+        <span class="skill-tag">Content Strategy</span>
+        <span class="skill-tag">Multi-platform Campaigns</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">🛠</div>
+      <h3 class="skill-group-title">Tools &amp; Tech</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Advanced Excel</span>
+        <span class="skill-tag">Tableau</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">AutoCAD</span>
+        <span class="skill-tag">Shopify</span>
+        <span class="skill-tag">Etsy</span>
+        <span class="skill-tag">Claude / ChatGPT</span>
+        <span class="skill-tag">Microsoft Office</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">🌍</div>
+      <h3 class="skill-group-title">Business Operations</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Budget Management</span>
+        <span class="skill-tag">Client Acquisition</span>
+        <span class="skill-tag">Scheduling &amp; Ops</span>
+        <span class="skill-tag">Contract-to-Close</span>
+        <span class="skill-tag">Event Management</span>
+        <span class="skill-tag">Cross-cultural Collab</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">📐</div>
+      <h3 class="skill-group-title">Quantitative Skills</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Pivot Tables</span>
+        <span class="skill-tag">VLOOKUP</span>
+        <span class="skill-tag">Fama-French Models</span>
+        <span class="skill-tag">Efficient Frontier</span>
+        <span class="skill-tag">Capital Markets</span>
+        <span class="skill-tag">Common-Size Statements</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">🎯</div>
+      <h3 class="skill-group-title">Soft Skills</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Leadership</span>
+        <span class="skill-tag">Communication</span>
+        <span class="skill-tag">Problem-solving</span>
+        <span class="skill-tag">Attention to Detail</span>
+        <span class="skill-tag">Teachability</span>
+        <span class="skill-tag">Proactive Ownership</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-number">03 — Experience</span>
+    <h2 class="section-title">Where I've worked</h2>
+  </div>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">Jul 2024 – Dec 2025</span>
+        <span class="exp-company">Aztec Recreation / Associated Students — San Diego, CA</span>
+      </div>
+      <div class="exp-content">
+        <h3 class="exp-role">Member Services Representative</h3>
+        <ul class="exp-bullets">
+          <li>Promoted and sold membership packages, consistently meeting and exceeding sales goals</li>
+          <li>Delivered front-line customer service assisting 50+ members daily</li>
+          <li>Managed operations at 2 satellite facilities, overseeing event scheduling, opening/closing procedures, and equipment readiness</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">Jun 2021 – Aug 2024</span>
+        <span class="exp-company">Compass Real Estate — San Diego, CA</span>
+      </div>
+      <div class="exp-content">
+        <h3 class="exp-role">Real Estate Marketing &amp; Administrative Assistant</h3>
+        <ul class="exp-bullets">
+          <li>Developed and scheduled multi-platform campaigns that increased engagement by 35% across TikTok, Instagram, and Facebook</li>
+          <li>Assisted with real estate operations including client file organization and support through the contract-to-close process</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">Jun 2021 – Jun 2023</span>
+        <span class="exp-company">Self-employed — San Diego, CA</span>
+      </div>
+      <div class="exp-content">
+        <h3 class="exp-role">Small Business Owner — Landscape Services</h3>
+        <ul class="exp-bullets">
+          <li>Managed all business operations including an annual budget exceeding $8,000, invoicing, and client acquisition</li>
+          <li>Optimized project schedules to handle multiple clients simultaneously while growing revenue</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-number">04 — Projects</span>
+    <h2 class="section-title">Selected work</h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <span class="project-type">Financial Modeling · Excel</span>
+      <h3 class="project-title">Discounted Cash Flow (DCF) Valuation Model</h3>
+      <p class="project-desc">Built a full DCF model to estimate intrinsic value of a public company, including revenue projections, WACC calculation, terminal value, and sensitivity analysis.</p>
+      <div class="project-tools">
+        <span class="project-tool">Excel</span>
+        <span class="project-tool">Financial Modeling</span>
+        <span class="project-tool">Valuation</span>
+      </div>
+      <a class="project-download" href="files/Discounted_Cash_Flow__DCF__Valuation_Model.xlsx" download>↓ Download file</a>
+    </div>
+    <div class="project-card">
+      <span class="project-type">Portfolio Theory · Excel</span>
+      <h3 class="project-title">Portfolio Optimization &amp; Efficient Frontier Analysis</h3>
+      <p class="project-desc">Constructed an efficient frontier model for a multi-asset portfolio using mean-variance optimization, identifying the optimal risk-return tradeoff using Solver.</p>
+      <div class="project-tools">
+        <span class="project-tool">Excel Solver</span>
+        <span class="project-tool">Portfolio Theory</span>
+        <span class="project-tool">Risk Analysis</span>
+      </div>
+      <a class="project-download" href="files/Portfolio_Optimization___Efficient_Frontier_Analysis.xlsx" download>↓ Download file</a>
+    </div>
+    <div class="project-card">
+      <span class="project-type">Quantitative Finance · Excel + Report</span>
+      <h3 class="project-title">Fama-French Factor Analysis — Kellanova Stock Returns</h3>
+      <p class="project-desc">Applied the Fama-French three-factor model to decompose Kellanova's stock returns into market, size, and value risk premiums through regression analysis.</p>
+      <div class="project-tools">
+        <span class="project-tool">Regression</span>
+        <span class="project-tool">Fama-French</span>
+        <span class="project-tool">Excel</span>
+        <span class="project-tool">Word Report</span>
+      </div>
+      <a class="project-download" href="files/Fama-French_Factor_Analysis_of_Kellanova_Stock_Returns.docx" download>↓ Download file</a>
+    </div>
+    <div class="project-card">
+      <span class="project-type">Capital Markets · Dashboard</span>
+      <h3 class="project-title">Capital Market Regression Analysis Dashboard</h3>
+      <p class="project-desc">Built an interactive Excel dashboard analyzing capital market returns using regression, visualizing risk-return relationships across asset classes.</p>
+      <div class="project-tools">
+        <span class="project-tool">Excel</span>
+        <span class="project-tool">Regression</span>
+        <span class="project-tool">Data Visualization</span>
+      </div>
+      <a class="project-download" href="files/Capital_Market_Regression_Analysis_Dashboard.xlsx" download>↓ Download file</a>
+    </div>
+    <div class="project-card">
+      <span class="project-type">Financial Statements · Excel</span>
+      <h3 class="project-title">Full Financial Statement Creation with Common-Size Analysis</h3>
+      <p class="project-desc">Constructed a complete set of financial statements (income statement, balance sheet, cash flow) with integrated common-size ratios for comparative analysis.</p>
+      <div class="project-tools">
+        <span class="project-tool">Excel</span>
+        <span class="project-tool">Accounting</span>
+        <span class="project-tool">Financial Reporting</span>
+      </div>
+      <a class="project-download" href="files/Full_Financial_Statement_Creation__Including_Common_Size_.xlsx" download>↓ Download file</a>
+    </div>
+    <div class="project-card">
+      <span class="project-type">ETF Analytics · Excel</span>
+      <h3 class="project-title">ETF Return &amp; Volatility Analysis</h3>
+      <p class="project-desc">Analyzed historical ETF return data to compare risk-adjusted performance, including rolling volatility, Sharpe ratios, and drawdown metrics.</p>
+      <div class="project-tools">
+        <span class="project-tool">Excel</span>
+        <span class="project-tool">ETF Analysis</span>
+        <span class="project-tool">Volatility Modeling</span>
+      </div>
+      <a class="project-download" href="files/ETF_Return___Volatility_Analysis.xlsx" download>↓ Download file</a>
+    </div>
+    <div class="project-card">
+      <span class="project-type">Strategy · Presentation</span>
+      <h3 class="project-title">The Future of Global Trade — AI &amp; Automation</h3>
+      <p class="project-desc">Group presentation covering AI's impact on global trade, supply chain optimization, smart manufacturing, digital trade flows, and regulatory challenges for international economics.</p>
+      <div class="project-tools">
+        <span class="project-tool">PowerPoint</span>
+        <span class="project-tool">International Economics</span>
+        <span class="project-tool">Research</span>
+      </div>
+      <a class="project-download" href="files/The_future_of_global_trade.pptx" download>↓ Download file</a>
+    </div>
+    <div class="project-card">
+      <span class="project-type">Macro Finance · Presentation</span>
+      <h3 class="project-title">Crypto Group Analysis &amp; Case Study</h3>
+      <p class="project-desc">Comprehensive analysis of cryptocurrency as a monetary instrument, covering Bitcoin's origins, the 2008 financial crisis, and whether crypto qualifies as money by economic standards.</p>
+      <div class="project-tools">
+        <span class="project-tool">PowerPoint</span>
+        <span class="project-tool">Macroeconomics</span>
+        <span class="project-tool">Case Study</span>
+      </div>
+      <a class="project-download" href="files/Crypto_Group_Analysis_and_Case_Study.pptx" download>↓ Download file</a>
+    </div>
+    <div class="project-card">
+      <span class="project-type">Financial Modeling · Excel</span>
+      <h3 class="project-title">Revenue Growth Projection &amp; Valuation Model</h3>
+      <p class="project-desc">Built a forward-looking revenue growth and valuation model incorporating scenario analysis, growth assumptions, and multiples-based valuation.</p>
+      <div class="project-tools">
+        <span class="project-tool">Excel</span>
+        <span class="project-tool">Valuation</span>
+        <span class="project-tool">Scenario Analysis</span>
+      </div>
+      <a class="project-download" href="files/Revenue_Growth_Projection___Valuation_Model.xlsx" download>↓ Download file</a>
+    </div>
+    <div class="project-card">
+      <span class="project-type">Business Strategy · Presentation</span>
+      <h3 class="project-title">Museli SAP Simulation Assessment</h3>
+      <p class="project-desc">Completed a SAP business simulation assessing supply chain, operations, and financial performance decisions in a competitive market environment.</p>
+      <div class="project-tools">
+        <span class="project-tool">PowerPoint</span>
+        <span class="project-tool">SAP</span>
+        <span class="project-tool">Operations</span>
+      </div>
+      <a class="project-download" href="files/Museli_SAP_Simulation_Assessment.pptx" download>↓ Download file</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PHOTOGRAPHY — add your portfolio link below when ready -->
+<section id="photography">
+  <div class="section-header">
+    <span class="section-number">05 — Photography</span>
+    <h2 class="section-title">Through the lens</h2>
+  </div>
+  <div class="photo-placeholder">
+    <div class="photo-placeholder-inner">
+      <div class="photo-icon">📷</div>
+      <h3 class="photo-placeholder-title">Nature Photography Portfolio</h3>
+      <p class="photo-placeholder-desc">Landscape and wildlife photography from the American West, Sicily, Barcelona, and beyond.</p>
+      <!-- TO ADD YOUR PORTFOLIO LINK: replace href="#" with your actual URL e.g. href="https://vsco.co/yourname" and remove onclick -->
+      <a href="#" class="btn btn-outline" onclick="return false;" style="opacity:0.5; cursor:default;">Portfolio coming soon</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-number">06 — Education</span>
+    <h2 class="section-title">Academic background</h2>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <span class="edu-year">2022 – Dec 2026</span>
+      <h3 class="edu-school">San Diego State University</h3>
+      <p class="edu-degree">BS Business Administration, Finance</p>
+      <br>
+      <p style="font-size:0.85rem; color: var(--muted); font-weight:300; margin-top:0.5rem;">Relevant coursework: Financial Modeling, Intermediate Finance, Risk Management, Managerial Economics, Financial/Managerial Accounting, Financial Law, Marketing, Micro/Macro Economics</p>
+    </div>
+    <div class="edu-card">
+      <span class="edu-year">Jan – May 2026</span>
+      <h3 class="edu-school">Universitat Autònoma de Barcelona</h3>
+      <p class="edu-degree">Exchange Program — International Business</p>
+      <br>
+      <p style="font-size:0.85rem; color: var(--muted); font-weight:300; margin-top:0.5rem;">Completed coursework in an international academic environment with cross-cultural collaboration and global business perspectives in Barcelona, Spain.</p>
+    </div>
+    <div class="edu-card">
+      <span class="edu-year">Certification</span>
+      <h3 class="edu-school">Bloomberg Market Concepts (BMC)</h3>
+      <p class="edu-degree">Equities · Fixed Income · Currencies · Economic Indicators</p>
+    </div>
+    <div class="edu-card">
+      <span class="edu-year">Simulation</span>
+      <h3 class="edu-school">J.P. Morgan Investment Banking Simulation</h3>
+      <p class="edu-degree">Financial Analysis · Valuation · Deal Execution</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-number">07 — Contact</span>
+    <h2 class="section-title">Let's connect</h2>
+  </div>
+  <div class="contact-inner">
+    <p>Open to internship opportunities in finance, investment banking, programmatic advertising, and digital strategy. Based in San Diego, open to relocation.</p>
+    <button class="btn btn-primary" style="font-size:1rem; padding: 1rem 2.5rem; border:none; cursor:pointer;" onclick="navigator.clipboard && navigator.clipboard.writeText('Nikolas.carruthers@gmail.com'); this.textContent='Email copied! ✓'; setTimeout(()=>this.textContent='Nikolas.carruthers@gmail.com →',2000)">Nikolas.carruthers@gmail.com →</button>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/nikolascarruthers" target="_blank" class="contact-link">
+        <span class="contact-link-icon">in</span>
+        LinkedIn
+      </a>
+      <span class="contact-link" style="cursor:pointer;" onclick="navigator.clipboard && navigator.clipboard.writeText('+16192511891')">
+        <span class="contact-link-icon">☎</span>
+        (619) 251-1891
+      </span>
+      <span class="contact-link" style="cursor:pointer;" onclick="navigator.clipboard && navigator.clipboard.writeText('Nikolas.carruthers@gmail.com')">
+        <span class="contact-link-icon">✉</span>
+        Email
+      </span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Nikolas Carruthers</p>
+  <p>San Diego, CA · SDSU Finance '26</p>
+</footer>
+
+</body>
+</html>
